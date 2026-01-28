@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="logo">
-            <a href="index.php" class="back-button">← Back</a>
+            <a href="register.php" class="back-button">← Back</a>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>

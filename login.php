@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="logo">
-            <a href="index.php" class="back-button">← Back</a>
+            <a href="landing.php" class="back-button">← Back</a>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>
@@ -53,7 +53,7 @@
             </form>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="index.php">Register now</a></p>
+                <p>Don't have an account? <a href="register.php">Register now</a></p>
             </div>
         </div>
     </main>
