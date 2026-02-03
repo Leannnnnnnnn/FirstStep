@@ -10,7 +10,8 @@
 <body>
     <header>
         <div class="logo">
-            <a href="register.php" class="back-button">← Back</a>
+            <a href="index.php" class="back-button">← Back</a>
+            <div class="logo-icon">🎓</div>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>
@@ -50,7 +51,7 @@
                             <span class="helper-text">Optional</span>
                         </div>
                         <div class="form-group">
-                            <label>Last Name *</label>
+                            <label>Surname *</label>
                             <input type="text" name="surname" placeholder="Dela Cruz" required>
                         </div>
                     </div>
@@ -152,8 +153,22 @@
                     </div>
                 </div>
 
+                <div class="form-section">
+                    <h3>Terms and Conditions</h3>
+                    <div class="terms-box">
+                        <p>By creating an account, you agree to our <a href="terms.php" target="_blank" class="terms-link">Terms and Conditions</a>. Please read them carefully before proceeding.</p>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="acceptTerms" id="acceptTerms" required>
+                            <span>I have read and I agree to the <a href="terms.php" target="_blank" class="terms-link">Terms and Conditions</a> of FirstStep. *</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary">Create Student Account</button>
+                    <button type="submit" class="btn-primary" id="submitBtn" disabled>Create Student Account</button>
                 </div>
             </form>
 
@@ -164,3 +179,18 @@
     </main>
 </body>
 </html>
+
+<script>
+    const checkbox = document.getElementById('acceptTerms');
+    const submitBtn = document.getElementById('submitBtn');
+
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('btn-disabled');
+        } else {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('btn-disabled');
+        }
+    });
+</script>
