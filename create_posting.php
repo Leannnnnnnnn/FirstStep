@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <header>
         <div class="logo">
-            <div class="logo-icon">🏢</div>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>
@@ -114,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="text" name="duration" placeholder="e.g., 3-6 months" required>
                         </div>
                         <div class="form-group">
-                            <label>Stipend</label>
+                            <label>Allowance</label>
                             <input type="text" name="stipend" placeholder="e.g., 5,000 - 8,000 per month">
                         </div>
                     </div>

@@ -11,7 +11,6 @@
     <header>
         <div class="logo">
             <a href="index.php" class="back-button">← Back</a>
-            <div class="logo-icon">🎓</div>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>
@@ -51,7 +50,7 @@
                             <span class="helper-text">Optional</span>
                         </div>
                         <div class="form-group">
-                            <label>Surname *</label>
+                            <label>Last Name *</label>
                             <input type="text" name="surname" placeholder="Dela Cruz" required>
                         </div>
                     </div>
@@ -93,7 +92,6 @@
                             <label>Year Level *</label>
                             <select name="yearLevel" required>
                                 <option value="">Select your level</option>
-                                <option value="1st Year">1st Year</option>
                                 <option value="2nd Year">2nd Year</option>
                                 <option value="3rd Year">3rd Year</option>
                                 <option value="4th Year">4th Year</option>

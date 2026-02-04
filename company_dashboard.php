@@ -76,7 +76,7 @@ $pending_applications = $conn->query($pending_query)->fetch_assoc()['total'];
     <main>
         <div class="dashboard-container">
             <div class="dashboard-header">
-                <h2>Welcome, <?php echo htmlspecialchars($company['company_name']); ?>! 🏢</h2>
+                <h2>Welcome, <?php echo htmlspecialchars($company['company_name']); ?>!</h2>
                 <p>Manage your internship postings and applications</p>
                 <?php if ($company['verification_status'] === 'pending'): ?>
                     <div class="alert alert-warning" style="margin-top: 1rem;">
