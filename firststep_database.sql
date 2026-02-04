@@ -1,10 +1,9 @@
--- FirstStep Database Schema (UPDATED)
--- Run this in phpMyAdmin to create the database
+-- FirstStep Database Schema
 
 CREATE DATABASE IF NOT EXISTS firststep_db;
 USE firststep_db;
 
--- Students Table (UPDATED with separate name fields and multiple internship types)
+-- Students Table 
 CREATE TABLE students (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -27,7 +26,7 @@ CREATE TABLE students (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Companies Table (unchanged)
+-- Companies Table 
 CREATE TABLE companies (
     company_id INT AUTO_INCREMENT PRIMARY KEY,
     company_name VARCHAR(255) NOT NULL,
@@ -46,7 +45,7 @@ CREATE TABLE companies (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Internship Postings Table (unchanged)
+-- Internship Postings Table 
 CREATE TABLE internship_postings (
     posting_id INT AUTO_INCREMENT PRIMARY KEY,
     company_id INT NOT NULL,
@@ -65,7 +64,7 @@ CREATE TABLE internship_postings (
     FOREIGN KEY (company_id) REFERENCES companies(company_id) ON DELETE CASCADE
 );
 
--- Applications Table (unchanged)
+-- Applications Table 
 CREATE TABLE applications (
     application_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
@@ -81,7 +80,7 @@ CREATE TABLE applications (
     FOREIGN KEY (company_id) REFERENCES companies(company_id) ON DELETE CASCADE
 );
 
--- Activity Logs Table (unchanged)
+-- Activity Logs Table 
 CREATE TABLE activity_logs (
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     user_type ENUM('student', 'company'),
@@ -92,7 +91,7 @@ CREATE TABLE activity_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Messages Table (unchanged - for future use)
+-- Messages Table 
 CREATE TABLE messages (
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_type ENUM('student', 'company'),
