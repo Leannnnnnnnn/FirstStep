@@ -84,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_logo'])) {
 <body>
     <header>
         <div class="logo">
-            <div class="logo-icon">🏢</div>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>

@@ -63,7 +63,6 @@ $count_stmt->close();
 <body>
     <header>
         <div class="logo">
-            <div class="logo-icon">🎓</div>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>

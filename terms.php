@@ -11,7 +11,6 @@
     <header>
         <div class="logo">
             <a href="landing.php" class="back-button">← Back</a>
-            <div class="logo-icon">🎓</div>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>
