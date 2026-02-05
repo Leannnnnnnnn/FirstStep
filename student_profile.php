@@ -140,21 +140,24 @@ $selected_types = !empty($student['internship_types']) ? explode(',', $student['
                     <div class="form-row">
                         <div class="form-group">
                             <label>First Name *</label>
-                            <input type="text" name="firstName" value="<?php echo htmlspecialchars($student['first_name']); ?>" required>
+                            <input type="text" name="firstName" value="<?php echo htmlspecialchars($student['first_name']); ?>" disabled>
+                            <span class="helper-text">This field cannot be changed</span>
                         </div>
                         <div class="form-group">
                             <label>Middle Name</label>
-                            <input type="text" name="middleName" value="<?php echo htmlspecialchars($student['middle_name']); ?>">
+                            <input type="text" name="middleName" value="<?php echo htmlspecialchars($student['middle_name']); ?>"disabled>
+                            <span class="helper-text">This field cannot be changed</span>
                         </div>
                         <div class="form-group">
                             <label>Last Name *</label>
-                            <input type="text" name="surname" value="<?php echo htmlspecialchars($student['surname']); ?>" required>
+                            <input type="text" name="surname" value="<?php echo htmlspecialchars($student['surname']); ?>" disabled>
+                            <span class="helper-text">This field cannot be changed</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
                         <input type="email" value="<?php echo htmlspecialchars($student['email']); ?>" disabled>
-                        <span class="helper-text">Email cannot be changed</span>
+                        <span class="helper-text">This field cannot be changed</span>
                     </div>
                 </div>
 
@@ -174,7 +177,6 @@ $selected_types = !empty($student['internship_types']) ? explode(',', $student['
                         <div class="form-group">
                             <label>Year Level *</label>
                             <select name="yearLevel" required>
-                                <option value="1st Year" <?php if($student['year_level'] == '1st Year') echo 'selected'; ?>>1st Year</option>
                                 <option value="2nd Year" <?php if($student['year_level'] == '2nd Year') echo 'selected'; ?>>2nd Year</option>
                                 <option value="3rd Year" <?php if($student['year_level'] == '3rd Year') echo 'selected'; ?>>3rd Year</option>
                                 <option value="4th Year" <?php if($student['year_level'] == '4th Year') echo 'selected'; ?>>4th Year</option>

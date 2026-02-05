@@ -17,28 +17,47 @@ $industry_type = sanitize_input($_POST['industryType'] ?? '');
 $company_address = sanitize_input($_POST['companyAddress'] ?? '');
 $company_description = sanitize_input($_POST['companyDescription'] ?? '');
 
+// Function to save form data
+function saveFormData() {
+    global $company_email, $contact_number, $company_name, $contact_person, $industry_type, $company_address, $company_description;
+    $_SESSION['form_data'] = [
+        'companyEmail' => $company_email,
+        'contactNumber' => $contact_number,
+        'companyName' => $company_name,
+        'contactPerson' => $contact_person,
+        'industryType' => $industry_type,
+        'companyAddress' => $company_address,
+        'companyDescription' => $company_description
+    ];
+}
+
 // Validation
 if (empty($company_email) || empty($company_name) || empty($password)) {
+    saveFormData();
     $_SESSION['error'] = 'Please fill in all required fields';
     redirect('register_company.php');
 }
 
 if (!validate_email($company_email)) {
+    saveFormData();
     $_SESSION['error'] = 'Please enter a valid email address';
     redirect('register_company.php');
 }
 
 if ($password !== $confirm_password) {
+    saveFormData();
     $_SESSION['error'] = 'Passwords do not match';
     redirect('register_company.php');
 }
 
 if (strlen($password) < 8) {
+    saveFormData();
     $_SESSION['error'] = 'Password must be at least 8 characters';
     redirect('register_company.php');
 }
 
 if (strlen($company_description) < 50) {
+    saveFormData();
     $_SESSION['error'] = 'Company description must be at least 50 characters';
     redirect('register_company.php');
 }
@@ -50,6 +69,7 @@ $check_stmt->execute();
 $check_result = $check_stmt->get_result();
 
 if ($check_result->num_rows > 0) {
+    saveFormData();
     $_SESSION['error'] = 'Email already registered';
     $check_stmt->close();
     redirect('register_company.php');
@@ -63,11 +83,13 @@ if (isset($_FILES['companyLogo']) && $_FILES['companyLogo']['error'] == 0) {
     $max_size = 2 * 1024 * 1024; // 2MB
     
     if (!in_array($_FILES['companyLogo']['type'], $allowed_types)) {
+        saveFormData();
         $_SESSION['error'] = 'Only PNG, JPG, and SVG files are allowed for logo';
         redirect('register_company.php');
     }
     
     if ($_FILES['companyLogo']['size'] > $max_size) {
+        saveFormData();
         $_SESSION['error'] = 'Logo file size must not exceed 2MB';
         redirect('register_company.php');
     }
@@ -81,6 +103,7 @@ if (isset($_FILES['companyLogo']) && $_FILES['companyLogo']['error'] == 0) {
     $upload_full_path = 'uploads/' . $logo_path;
     
     if (!move_uploaded_file($_FILES['companyLogo']['tmp_name'], $upload_full_path)) {
+        saveFormData();
         $_SESSION['error'] = 'Failed to upload logo. Please try again.';
         redirect('register_company.php');
     }
@@ -95,6 +118,8 @@ $stmt = $conn->prepare("INSERT INTO companies (company_name, company_email, pass
 $stmt->bind_param("sssssssss", $company_name, $company_email, $password_hash, $contact_number, $contact_person, $industry_type, $company_address, $company_description, $logo_path);
 
 if ($stmt->execute()) {
+    // Clear form data on success
+    unset($_SESSION['form_data']);
     $_SESSION['success'] = 'Registration successful! Your account is pending verification. Please login.';
     $stmt->close();
     $conn->close();
@@ -105,6 +130,7 @@ if ($stmt->execute()) {
         unlink('uploads/' . $logo_path);
     }
     
+    saveFormData();
     $_SESSION['error'] = 'Registration failed: ' . $conn->error;
     $stmt->close();
     $conn->close();

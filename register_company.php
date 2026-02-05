@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="logo">
-            <a href="index.php" class="back-button">← Back</a>
+            <a href="register.php" class="back-button">← Back</a>
             <div class="logo-text">
                 <h1>FirstStep</h1>
                 <p>Internship Connection Platform</p>
@@ -34,6 +34,18 @@
                 echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
                 unset($_SESSION['success']);
             }
+
+            // Preserve form data
+            $companyEmail = isset($_SESSION['form_data']['companyEmail']) ? htmlspecialchars($_SESSION['form_data']['companyEmail']) : '';
+            $contactNumber = isset($_SESSION['form_data']['contactNumber']) ? htmlspecialchars($_SESSION['form_data']['contactNumber']) : '';
+            $companyName = isset($_SESSION['form_data']['companyName']) ? htmlspecialchars($_SESSION['form_data']['companyName']) : '';
+            $contactPerson = isset($_SESSION['form_data']['contactPerson']) ? htmlspecialchars($_SESSION['form_data']['contactPerson']) : '';
+            $industryType = isset($_SESSION['form_data']['industryType']) ? htmlspecialchars($_SESSION['form_data']['industryType']) : '';
+            $companyAddress = isset($_SESSION['form_data']['companyAddress']) ? htmlspecialchars($_SESSION['form_data']['companyAddress']) : '';
+            $companyDescription = isset($_SESSION['form_data']['companyDescription']) ? htmlspecialchars($_SESSION['form_data']['companyDescription']) : '';
+
+            // Clear form data after retrieving
+            unset($_SESSION['form_data']);
             ?>
 
             <form action="process_company_registration.php" method="POST" enctype="multipart/form-data">
@@ -42,12 +54,12 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Company Email *</label>
-                            <input type="email" name="companyEmail" placeholder="company@email.com" required>
+                            <input type="email" name="companyEmail" placeholder="company@email.com" value="<?php echo $companyEmail; ?>" required>
                             <span class="helper-text">Use your official company email address</span>
                         </div>
                         <div class="form-group">
                             <label>Contact Number *</label>
-                            <input type="tel" name="contactNumber" placeholder="+63 912 345 6789" required>
+                            <input type="tel" name="contactNumber" placeholder="+63 912 345 6789" value="<?php echo $contactNumber; ?>" required>
                             <span class="helper-text">Include country code (e.g., +63 for Philippines)</span>
                         </div>
                     </div>
@@ -70,11 +82,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Company Name *</label>
-                            <input type="text" name="companyName" placeholder="Acme Corporation" required>
+                            <input type="text" name="companyName" placeholder="Acme Corporation" value="<?php echo $companyName; ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Contact Person *</label>
-                            <input type="text" name="contactPerson" placeholder="Maria Santos" required>
+                            <input type="text" name="contactPerson" placeholder="Maria Santos" value="<?php echo $contactPerson; ?>" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -82,25 +94,25 @@
                             <label>Industry Type *</label>
                             <select name="industryType" required>
                                 <option value="">Select industry</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Education">Education</option>
-                                <option value="Marketing">Marketing</option>
-                                <option value="Manufacturing">Manufacturing</option>
-                                <option value="Retail">Retail</option>
-                                <option value="Hospitality">Hospitality</option>
-                                <option value="Other">Other</option>
+                                <option value="Technology" <?php if($industryType == 'Technology') echo 'selected'; ?>>Technology</option>
+                                <option value="Finance" <?php if($industryType == 'Finance') echo 'selected'; ?>>Finance</option>
+                                <option value="Healthcare" <?php if($industryType == 'Healthcare') echo 'selected'; ?>>Healthcare</option>
+                                <option value="Education" <?php if($industryType == 'Education') echo 'selected'; ?>>Education</option>
+                                <option value="Marketing" <?php if($industryType == 'Marketing') echo 'selected'; ?>>Marketing</option>
+                                <option value="Manufacturing" <?php if($industryType == 'Manufacturing') echo 'selected'; ?>>Manufacturing</option>
+                                <option value="Retail" <?php if($industryType == 'Retail') echo 'selected'; ?>>Retail</option>
+                                <option value="Hospitality" <?php if($industryType == 'Hospitality') echo 'selected'; ?>>Hospitality</option>
+                                <option value="Other" <?php if($industryType == 'Other') echo 'selected'; ?>>Other</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Company Address *</label>
-                        <input type="text" name="companyAddress" placeholder="123 Business St., Makati City, Metro Manila" required>
+                        <input type="text" name="companyAddress" placeholder="123 Business St., Makati City, Metro Manila" value="<?php echo $companyAddress; ?>" required>
                     </div>
                     <div class="form-group">
                         <label>Company Description *</label>
-                        <textarea name="companyDescription" placeholder="Tell us about your company, mission, and what you do..." required></textarea>
+                        <textarea name="companyDescription" placeholder="Tell us about your company, mission, and what you do..." required><?php echo $companyDescription; ?></textarea>
                         <span class="helper-text">Minimum 50 characters - Describe your company's mission and services</span>
                     </div>
                 </div>
@@ -119,7 +131,6 @@
                     <div class="terms-box">
                         <p>By creating an account, you agree to our <a href="terms.php" target="_blank" class="terms-link">Terms and Conditions</a>. Please read them carefully before proceeding.</p>
                     </div>
-                    <br>
                     <div class="form-group">
                         <label class="checkbox-label">
                             <input type="checkbox" name="acceptTerms" id="acceptTerms" required>
@@ -129,7 +140,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary company-btn" id="submitBtn" disabled>Create Company Account</button>
+                    <button type="submit" class="btn-primary company-btn" id="submitBtn" onclick="checkTerms(event)">Create Company Account</button>
                 </div>
             </form>
 
@@ -142,16 +153,22 @@
 </html>
 
 <script>
-    const checkbox = document.getElementById('acceptTerms');
-    const submitBtn = document.getElementById('submitBtn');
+    function checkTerms(event) {
+        const checkbox = document.getElementById('acceptTerms');
+        if (!checkbox.checked) {
+            event.preventDefault();
+            document.getElementById('termsModal').classList.add('active');
+        }
+    }
 
-    checkbox.addEventListener('change', function() {
-        if (this.checked) {
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('btn-disabled');
-        } else {
-            submitBtn.disabled = true;
-            submitBtn.classList.add('btn-disabled');
+    function closeModal() {
+        document.getElementById('termsModal').classList.remove('active');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('termsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
         }
     });
 </script>

@@ -34,6 +34,22 @@
                 echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
                 unset($_SESSION['success']);
             }
+
+            // Preserve form data
+            $firstName = isset($_SESSION['form_data']['firstName']) ? htmlspecialchars($_SESSION['form_data']['firstName']) : '';
+            $middleName = isset($_SESSION['form_data']['middleName']) ? htmlspecialchars($_SESSION['form_data']['middleName']) : '';
+            $surname = isset($_SESSION['form_data']['surname']) ? htmlspecialchars($_SESSION['form_data']['surname']) : '';
+            $email = isset($_SESSION['form_data']['email']) ? htmlspecialchars($_SESSION['form_data']['email']) : '';
+            $school = isset($_SESSION['form_data']['school']) ? htmlspecialchars($_SESSION['form_data']['school']) : '';
+            $course = isset($_SESSION['form_data']['course']) ? htmlspecialchars($_SESSION['form_data']['course']) : '';
+            $yearLevel = isset($_SESSION['form_data']['yearLevel']) ? htmlspecialchars($_SESSION['form_data']['yearLevel']) : '';
+            $city = isset($_SESSION['form_data']['city']) ? htmlspecialchars($_SESSION['form_data']['city']) : '';
+            $barangay = isset($_SESSION['form_data']['barangay']) ? htmlspecialchars($_SESSION['form_data']['barangay']) : '';
+            $skills = isset($_SESSION['form_data']['skills']) ? htmlspecialchars($_SESSION['form_data']['skills']) : '';
+            $internshipTypes = isset($_SESSION['form_data']['internshipTypes']) ? $_SESSION['form_data']['internshipTypes'] : [];
+
+            // Clear form data after retrieving
+            unset($_SESSION['form_data']);
             ?>
 
             <form action="process_student_registration.php" method="POST" enctype="multipart/form-data">
@@ -42,22 +58,22 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>First Name *</label>
-                            <input type="text" name="firstName" placeholder="Juan" required>
+                            <input type="text" name="firstName" placeholder="Juan" value="<?php echo $firstName; ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Middle Name</label>
-                            <input type="text" name="middleName" placeholder="Santos">
+                            <input type="text" name="middleName" placeholder="Santos" value="<?php echo $middleName; ?>">
                             <span class="helper-text">Optional</span>
                         </div>
                         <div class="form-group">
                             <label>Last Name *</label>
-                            <input type="text" name="surname" placeholder="Dela Cruz" required>
+                            <input type="text" name="surname" placeholder="Dela Cruz" value="<?php echo $surname; ?>" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Email Address *</label>
-                            <input type="email" name="email" placeholder="juan@email.com" required>
+                            <input type="email" name="email" placeholder="juan@email.com" value="<?php echo $email; ?>" required>
                             <span class="helper-text">Use a valid email format (e.g., name@example.com)</span>
                         </div>
                     </div>
@@ -80,11 +96,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>School / University *</label>
-                            <input type="text" name="school" placeholder="University of the Philippines" required>
+                            <input type="text" name="school" placeholder="University of the Philippines" value="<?php echo $school; ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Course / Program *</label>
-                            <input type="text" name="course" placeholder="BS Computer Science" required>
+                            <input type="text" name="course" placeholder="BS Computer Science" value="<?php echo $course; ?>" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -92,10 +108,10 @@
                             <label>Year Level *</label>
                             <select name="yearLevel" required>
                                 <option value="">Select your level</option>
-                                <option value="2nd Year">2nd Year</option>
-                                <option value="3rd Year">3rd Year</option>
-                                <option value="4th Year">4th Year</option>
-                                <option value="5th Year">5th Year</option>
+                                <option value="2nd Year" <?php if($yearLevel == '2nd Year') echo 'selected'; ?>>2nd Year</option>
+                                <option value="3rd Year" <?php if($yearLevel == '3rd Year') echo 'selected'; ?>>3rd Year</option>
+                                <option value="4th Year" <?php if($yearLevel == '4th Year') echo 'selected'; ?>>4th Year</option>
+                                <option value="5th Year" <?php if($yearLevel == '5th Year') echo 'selected'; ?>>5th Year</option>
                             </select>
                         </div>
                     </div>
@@ -106,11 +122,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>City *</label>
-                            <input type="text" name="city" placeholder="Quezon City" required>
+                            <input type="text" name="city" placeholder="Quezon City" value="<?php echo $city; ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Barangay *</label>
-                            <input type="text" name="barangay" placeholder="Commonwealth" required>
+                            <input type="text" name="barangay" placeholder="Commonwealth" value="<?php echo $barangay; ?>" required>
                         </div>
                     </div>
                 </div>
@@ -121,15 +137,15 @@
                         <label>Preferred Internship Types * (Select all that apply)</label>
                         <div class="checkbox-group">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="On-site">
+                                <input type="checkbox" name="internshipTypes[]" value="On-site" <?php if(in_array('On-site', $internshipTypes)) echo 'checked'; ?>>
                                 <span>On-site</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="Remote">
+                                <input type="checkbox" name="internshipTypes[]" value="Remote" <?php if(in_array('Remote', $internshipTypes)) echo 'checked'; ?>>
                                 <span>Remote</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="Hybrid">
+                                <input type="checkbox" name="internshipTypes[]" value="Hybrid" <?php if(in_array('Hybrid', $internshipTypes)) echo 'checked'; ?>>
                                 <span>Hybrid</span>
                             </label>
                         </div>
@@ -137,7 +153,7 @@
                     </div>
                     <div class="form-group">
                         <label>Skills</label>
-                        <input type="text" name="skills" placeholder="e.g., JavaScript, Python, Communication">
+                        <input type="text" name="skills" placeholder="e.g., JavaScript, Python, Communication" value="<?php echo $skills; ?>">
                         <span class="helper-text">Enter your skills separated by commas</span>
                     </div>
                 </div>
@@ -156,7 +172,6 @@
                     <div class="terms-box">
                         <p>By creating an account, you agree to our <a href="terms.php" target="_blank" class="terms-link">Terms and Conditions</a>. Please read them carefully before proceeding.</p>
                     </div>
-                    <br>
                     <div class="form-group">
                         <label class="checkbox-label">
                             <input type="checkbox" name="acceptTerms" id="acceptTerms" required>
@@ -166,7 +181,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary" id="submitBtn" disabled>Create Student Account</button>
+                    <button type="submit" class="btn-primary" id="submitBtn" onclick="checkTerms(event)">Create Student Account</button>
                 </div>
             </form>
 
@@ -179,16 +194,22 @@
 </html>
 
 <script>
-    const checkbox = document.getElementById('acceptTerms');
-    const submitBtn = document.getElementById('submitBtn');
+    function checkTerms(event) {
+        const checkbox = document.getElementById('acceptTerms');
+        if (!checkbox.checked) {
+            event.preventDefault();
+            document.getElementById('termsModal').classList.add('active');
+        }
+    }
 
-    checkbox.addEventListener('change', function() {
-        if (this.checked) {
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('btn-disabled');
-        } else {
-            submitBtn.disabled = true;
-            submitBtn.classList.add('btn-disabled');
+    function closeModal() {
+        document.getElementById('termsModal').classList.remove('active');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('termsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
         }
     });
 </script>
