@@ -56,11 +56,43 @@ if (strlen($password) < 8) {
     redirect('register_company.php');
 }
 
+// ===== ADDED: LENGTH VALIDATION =====
+if (strlen($company_name) > 255) {
+    saveFormData();
+    $_SESSION['error'] = 'Company name must not exceed 255 characters';
+    redirect('register_company.php');
+}
+
+if (!empty($contact_person) && strlen($contact_person) > 255) {
+    saveFormData();
+    $_SESSION['error'] = 'Contact person name must not exceed 255 characters';
+    redirect('register_company.php');
+}
+
+if (!empty($contact_number) && strlen($contact_number) > 50) {
+    saveFormData();
+    $_SESSION['error'] = 'Contact number must not exceed 50 characters';
+    redirect('register_company.php');
+}
+
 if (strlen($company_description) < 50) {
     saveFormData();
     $_SESSION['error'] = 'Company description must be at least 50 characters';
     redirect('register_company.php');
 }
+
+if (strlen($company_description) > 5000) {
+    saveFormData();
+    $_SESSION['error'] = 'Company description must not exceed 5000 characters';
+    redirect('register_company.php');
+}
+
+if (!empty($company_address) && strlen($company_address) > 500) {
+    saveFormData();
+    $_SESSION['error'] = 'Company address must not exceed 500 characters';
+    redirect('register_company.php');
+}
+// ===== END LENGTH VALIDATION =====
 
 // Check if email already exists
 $check_stmt = $conn->prepare("SELECT company_id FROM companies WHERE company_email = ?");

@@ -72,6 +72,38 @@ if (strlen($password) < 8) {
     redirect('register_student.php');
 }
 
+// ===== ADDED: LENGTH VALIDATION =====
+if (strlen($first_name) > 100 || strlen($surname) > 100) {
+    saveFormData();
+    $_SESSION['error'] = 'Name fields must not exceed 100 characters';
+    redirect('register_student.php');
+}
+
+if (!empty($middle_name) && strlen($middle_name) > 100) {
+    saveFormData();
+    $_SESSION['error'] = 'Middle name must not exceed 100 characters';
+    redirect('register_student.php');
+}
+
+if (strlen($school) > 255 || strlen($course) > 255) {
+    saveFormData();
+    $_SESSION['error'] = 'School and course fields must not exceed 255 characters';
+    redirect('register_student.php');
+}
+
+if (strlen($city) > 100 || strlen($barangay) > 100) {
+    saveFormData();
+    $_SESSION['error'] = 'City and barangay fields must not exceed 100 characters';
+    redirect('register_student.php');
+}
+
+if (!empty($skills) && strlen($skills) > 500) {
+    saveFormData();
+    $_SESSION['error'] = 'Skills must not exceed 500 characters';
+    redirect('register_student.php');
+}
+// ===== END LENGTH VALIDATION =====
+
 // Check if email already exists
 $check_stmt = $conn->prepare("SELECT student_id FROM students WHERE email = ?");
 $check_stmt->bind_param("s", $email);

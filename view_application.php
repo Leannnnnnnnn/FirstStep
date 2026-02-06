@@ -37,16 +37,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $new_status = sanitize_input($_POST['status']);
     $notes = sanitize_input($_POST['notes']);
     
-    $update_stmt = $conn->prepare("UPDATE applications SET status=?, notes=?, reviewed_at=NOW() WHERE application_id=? AND company_id=?");
-    $update_stmt->bind_param("ssii", $new_status, $notes, $application_id, $_SESSION['user_id']);
-    
-    if ($update_stmt->execute()) {
-        $_SESSION['success'] = 'Application status updated successfully!';
-        redirect('view_application.php?id=' . $application_id);
+    // ===== ADDED: NOTES VALIDATION =====
+    if (!empty($notes) && strlen($notes) > 2000) {
+        $_SESSION['error'] = 'Notes must not exceed 2000 characters';
     } else {
-        $_SESSION['error'] = 'Failed to update application';
+        // ===== END NOTES VALIDATION =====
+        
+        $update_stmt = $conn->prepare("UPDATE applications SET status=?, notes=?, reviewed_at=NOW() WHERE application_id=? AND company_id=?");
+        $update_stmt->bind_param("ssii", $new_status, $notes, $application_id, $_SESSION['user_id']);
+        
+        if ($update_stmt->execute()) {
+            $_SESSION['success'] = 'Application status updated successfully!';
+            redirect('view_application.php?id=' . $application_id);
+        } else {
+            $_SESSION['error'] = 'Failed to update application';
+        }
+        $update_stmt->close();
     }
-    $update_stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -181,8 +188,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
                     </div>
                     <div class="form-group">
                         <label>Notes for Applicant</label>
-                        <textarea name="notes" rows="4" placeholder="Add feedback or notes for the applicant..."><?php echo htmlspecialchars($application['notes']); ?></textarea>
-                        <span class="helper-text">These notes will be visible to the student</span>
+                        <textarea name="notes" rows="4" placeholder="Add feedback or notes for the applicant..." maxlength="2000"><?php echo htmlspecialchars($application['notes']); ?></textarea>
+                        <span class="helper-text">Maximum 2000 characters. These notes will be visible to the student</span>
                     </div>
                 </div>
 

@@ -37,16 +37,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply'])) {
     } else {
         $cover_letter = sanitize_input($_POST['coverLetter']);
         
-        $apply_stmt = $conn->prepare("INSERT INTO applications (student_id, posting_id, company_id, cover_letter, status) VALUES (?, ?, ?, ?, 'pending')");
-        $apply_stmt->bind_param("iiis", $_SESSION['user_id'], $posting_id, $internship['company_id'], $cover_letter);
-        
-        if ($apply_stmt->execute()) {
-            $_SESSION['success'] = 'Application submitted successfully!';
-            redirect('student_applications.php');
+        // ===== ADDED: COVER LETTER VALIDATION =====
+        if (empty($cover_letter)) {
+            $_SESSION['error'] = 'Cover letter is required';
+        } elseif (strlen($cover_letter) < 50) {
+            $_SESSION['error'] = 'Cover letter must be at least 50 characters';
+        } elseif (strlen($cover_letter) > 5000) {
+            $_SESSION['error'] = 'Cover letter must not exceed 5000 characters';
         } else {
-            $_SESSION['error'] = 'Failed to submit application';
+            // ===== END COVER LETTER VALIDATION =====
+            
+            $apply_stmt = $conn->prepare("INSERT INTO applications (student_id, posting_id, company_id, cover_letter, status) VALUES (?, ?, ?, ?, 'pending')");
+            $apply_stmt->bind_param("iiis", $_SESSION['user_id'], $posting_id, $internship['company_id'], $cover_letter);
+            
+            if ($apply_stmt->execute()) {
+                $_SESSION['success'] = 'Application submitted successfully!';
+                redirect('student_applications.php');
+            } else {
+                $_SESSION['error'] = 'Failed to submit application';
+            }
+            $apply_stmt->close();
         }
-        $apply_stmt->close();
     }
 }
 ?>
@@ -134,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply'])) {
                         <h3>Apply for this Internship</h3>
                         <div class="form-group">
                             <label>Cover Letter *</label>
-                            <textarea name="coverLetter" rows="8" placeholder="Tell the company why you're interested in this internship and why you'd be a great fit..." required></textarea>
-                            <span class="helper-text">Explain your interest and qualifications for this position</span>
+                            <textarea name="coverLetter" rows="8" placeholder="Tell the company why you're interested in this internship and why you'd be a great fit..." required minlength="50" maxlength="5000"></textarea>
+                            <span class="helper-text">Minimum 50 characters, maximum 5000 characters. Explain your interest and qualifications for this position.</span>
                         </div>
                     </div>
 
