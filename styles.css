@@ -67,7 +67,7 @@ header {
 
 /* Main Container */
 main {
-    padding: 2rem;
+    padding: 1rem 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +78,7 @@ main {
     background: var(--white);
     border-radius: 12px;
     padding: 2.5rem;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
@@ -110,7 +110,7 @@ main {
 .account-card {
     border: 2px solid var(--border-color);
     border-radius: 10px;
-    padding: 2rem;
+    padding: 1rem 0.5rem;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -261,7 +261,7 @@ main {
 /* File Input */
 .file-input {
     border: 2px dashed var(--border-color);
-    padding: 2rem;
+    padding: 1rem 0.5rem;
     text-align: center;
     cursor: pointer;
 }
@@ -409,14 +409,16 @@ main {
 
 /* Dashboard Styles */
 .dashboard-container {
-    max-width: 1200px;
+    max-width: 1600px;
+    width: 95%;
+    margin: 0 auto;
     background: transparent;
     box-shadow: none;
 }
 
 .dashboard-header {
     background: var(--white);
-    padding: 2rem;
+    padding: 1rem 0.5rem;
     border-radius: 10px;
     margin-bottom: 2rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -455,7 +457,7 @@ main {
 
 .dashboard-content {
     background: var(--white);
-    padding: 2rem;
+    padding: 1rem 0.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
@@ -737,7 +739,7 @@ main {
 
 /* Container for Sections */
 .container-landing {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -886,7 +888,7 @@ main {
 
 .step-card {
     background: var(--white);
-    padding: 2rem;
+    padding: 1rem 0.5rem;
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
