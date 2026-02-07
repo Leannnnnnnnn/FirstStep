@@ -66,8 +66,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Password *</label>
-                            <input type="password" name="password" placeholder="••••••••" required minlength="8">
-                            <span class="helper-text">Minimum 8 characters required</span>
+                            <input type="password" name="password" placeholder="••••••••" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).{8,}$" title="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character">
+                            <span class="helper-text">Must be at least 8 characters and include: uppercase, lowercase, number, and special character (!@#$%^&*etc.)</span>
                         </div>
                         <div class="form-group">
                             <label>Confirm Password *</label>

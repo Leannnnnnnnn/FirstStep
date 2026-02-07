@@ -72,6 +72,32 @@ if (strlen($password) < 8) {
     redirect('register_student.php');
 }
 
+// ===== ADDED: PASSWORD COMPLEXITY VALIDATION =====
+if (!preg_match('/[A-Z]/', $password)) {
+    saveFormData();
+    $_SESSION['error'] = 'Password must contain at least one uppercase letter';
+    redirect('register_student.php');
+}
+
+if (!preg_match('/[a-z]/', $password)) {
+    saveFormData();
+    $_SESSION['error'] = 'Password must contain at least one lowercase letter';
+    redirect('register_student.php');
+}
+
+if (!preg_match('/[0-9]/', $password)) {
+    saveFormData();
+    $_SESSION['error'] = 'Password must contain at least one number';
+    redirect('register_student.php');
+}
+
+if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+    saveFormData();
+    $_SESSION['error'] = 'Password must contain at least one special character (!@#$%^&*(),.?":{}|<>)';
+    redirect('register_student.php');
+}
+// ===== END PASSWORD COMPLEXITY VALIDATION =====
+
 // ===== ADDED: LENGTH VALIDATION =====
 if (strlen($first_name) > 100 || strlen($surname) > 100) {
     saveFormData();
