@@ -80,7 +80,7 @@ $accepted_applications = $conn->query("SELECT COUNT(*) as total FROM application
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h2>Welcome, <?php echo htmlspecialchars($first_name); ?>! 👋</h2>
-                <p>Find your perfect internship opportunity</p>
+                <p style="margin-left: 20px;">Find your perfect internship opportunity</p>
             </div>
             <div class="dashboard-stats">
                 <div class="stat-card"><h3>Total Applications</h3><p class="stat-number"><?php echo $total_applications; ?></p></div>
@@ -151,7 +151,7 @@ $accepted_applications = $conn->query("SELECT COUNT(*) as total FROM application
                 </form>
             </div>
             <div class="dashboard-content">
-                <h3>Available Internship Opportunities <?php if ($internships->num_rows > 0): ?><span style="color: var(--gray); font-size: 0.9rem; font-weight: normal;">(<?php echo $internships->num_rows; ?> results)</span><?php endif; ?></h3>
+                <h3 style= "margin-left: 20px;" >Available Internship Opportunities <?php if ($internships->num_rows > 0): ?><span style="color: var(--gray); font-size: 0.9rem; font-weight: normal;">(<?php echo $internships->num_rows; ?> results)</span><?php endif; ?></h3>
                 <div class="internship-list">
                     <?php if ($internships->num_rows > 0): while ($internship = $internships->fetch_assoc()): ?>
                         <div class="internship-card">

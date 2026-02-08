@@ -425,6 +425,7 @@ main {
 }
 
 .dashboard-header h2 {
+    margin-left: 20px;
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
