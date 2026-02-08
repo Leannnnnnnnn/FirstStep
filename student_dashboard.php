@@ -116,16 +116,6 @@ $accepted_applications = $conn->query("SELECT COUNT(*) as total FROM application
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label>Monthly Allowance</label>
-                            <select name="allowance">
-                                <option value="">Any Allowance</option>
-                                <option value="0" <?php echo $filter_allowance === '0' ? 'selected' : ''; ?>>Unpaid</option>
-                                <option value="1-5000" <?php echo $filter_allowance === '1-5000' ? 'selected' : ''; ?>>₱1 - ₱5,000</option>
-                                <option value="5001-10000" <?php echo $filter_allowance === '5001-10000' ? 'selected' : ''; ?>>₱5,001 - ₱10,000</option>
-                                <option value="10000+" <?php echo $filter_allowance === '10000+' ? 'selected' : ''; ?>>₱10,000+</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
                             <label>Internship Type</label>
                             <select name="type">
                                 <option value="">Any Type</option>
