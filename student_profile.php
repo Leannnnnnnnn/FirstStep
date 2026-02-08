@@ -170,7 +170,55 @@ $selected_types = !empty($student['internship_types']) ? explode(',', $student['
                         </div>
                         <div class="form-group">
                             <label>Course / Program *</label>
-                            <input type="text" name="course" value="<?php echo htmlspecialchars($student['course']); ?>" required>
+                            <select name="course" required>
+                                <option value="">Select your course</option>
+                                <optgroup label="Engineering & Technology">
+                                    <option value="BS Computer Engineering" <?php if($student['course'] == 'BS Computer Engineering') echo 'selected'; ?>>BS Computer Engineering</option>
+                                    <option value="BS Computer Science" <?php if($student['course'] == 'BS Computer Science') echo 'selected'; ?>>BS Computer Science</option>
+                                    <option value="BS Information Technology" <?php if($student['course'] == 'BS Information Technology') echo 'selected'; ?>>BS Information Technology</option>
+                                    <option value="BS Civil Engineering" <?php if($student['course'] == 'BS Civil Engineering') echo 'selected'; ?>>BS Civil Engineering</option>
+                                    <option value="BS Electrical Engineering" <?php if($student['course'] == 'BS Electrical Engineering') echo 'selected'; ?>>BS Electrical Engineering</option>
+                                    <option value="BS Mechanical Engineering" <?php if($student['course'] == 'BS Mechanical Engineering') echo 'selected'; ?>>BS Mechanical Engineering</option>
+                                    <option value="BS Architecture" <?php if($student['course'] == 'BS Architecture') echo 'selected'; ?>>BS Architecture</option>
+                                </optgroup>
+                                <optgroup label="Business & Management">
+                                    <option value="BS Business Administration" <?php if($student['course'] == 'BS Business Administration') echo 'selected'; ?>>BS Business Administration</option>
+                                    <option value="BS Accountancy" <?php if($student['course'] == 'BS Accountancy') echo 'selected'; ?>>BS Accountancy</option>
+                                    <option value="BS Entrepreneurship" <?php if($student['course'] == 'BS Entrepreneurship') echo 'selected'; ?>>BS Entrepreneurship</option>
+                                    <option value="BS Marketing Management" <?php if($student['course'] == 'BS Marketing Management') echo 'selected'; ?>>BS Marketing Management</option>
+                                    <option value="BS Hotel & Restaurant Management" <?php if($student['course'] == 'BS Hotel & Restaurant Management') echo 'selected'; ?>>BS Hotel & Restaurant Management</option>
+                                    <option value="BS Tourism Management" <?php if($student['course'] == 'BS Tourism Management') echo 'selected'; ?>>BS Tourism Management</option>
+                                </optgroup>
+                                <optgroup label="Healthcare & Medical">
+                                    <option value="BS Nursing" <?php if($student['course'] == 'BS Nursing') echo 'selected'; ?>>BS Nursing</option>
+                                    <option value="BS Pharmacy" <?php if($student['course'] == 'BS Pharmacy') echo 'selected'; ?>>BS Pharmacy</option>
+                                    <option value="BS Physical Therapy" <?php if($student['course'] == 'BS Physical Therapy') echo 'selected'; ?>>BS Physical Therapy</option>
+                                    <option value="BS Medical Technology" <?php if($student['course'] == 'BS Medical Technology') echo 'selected'; ?>>BS Medical Technology</option>
+                                    <option value="Doctor of Medicine" <?php if($student['course'] == 'Doctor of Medicine') echo 'selected'; ?>>Doctor of Medicine</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="Bachelor of Elementary Education" <?php if($student['course'] == 'Bachelor of Elementary Education') echo 'selected'; ?>>Bachelor of Elementary Education</option>
+                                    <option value="Bachelor of Secondary Education" <?php if($student['course'] == 'Bachelor of Secondary Education') echo 'selected'; ?>>Bachelor of Secondary Education</option>
+                                </optgroup>
+                                <optgroup label="Sciences">
+                                    <option value="BS Biology" <?php if($student['course'] == 'BS Biology') echo 'selected'; ?>>BS Biology</option>
+                                    <option value="BS Chemistry" <?php if($student['course'] == 'BS Chemistry') echo 'selected'; ?>>BS Chemistry</option>
+                                    <option value="BS Psychology" <?php if($student['course'] == 'BS Psychology') echo 'selected'; ?>>BS Psychology</option>
+                                    <option value="BS Environmental Science" <?php if($student['course'] == 'BS Environmental Science') echo 'selected'; ?>>BS Environmental Science</option>
+                                </optgroup>
+                                <optgroup label="Arts & Communication">
+                                    <option value="AB Communication" <?php if($student['course'] == 'AB Communication') echo 'selected'; ?>>AB Communication</option>
+                                    <option value="AB Mass Communication" <?php if($student['course'] == 'AB Mass Communication') echo 'selected'; ?>>AB Mass Communication</option>
+                                    <option value="BA Fine Arts" <?php if($student['course'] == 'BA Fine Arts') echo 'selected'; ?>>BA Fine Arts</option>
+                                    <option value="BA Multimedia Arts" <?php if($student['course'] == 'BA Multimedia Arts') echo 'selected'; ?>>BA Multimedia Arts</option>
+                                </optgroup>
+                                <optgroup label="Others">
+                                    <option value="BS Agriculture" <?php if($student['course'] == 'BS Agriculture') echo 'selected'; ?>>BS Agriculture</option>
+                                    <option value="BS Criminology" <?php if($student['course'] == 'BS Criminology') echo 'selected'; ?>>BS Criminology</option>
+                                    <option value="BS Social Work" <?php if($student['course'] == 'BS Social Work') echo 'selected'; ?>>BS Social Work</option>
+                                    <option value="Other" <?php if($student['course'] == 'Other') echo 'selected'; ?>>Other</option>
+                                </optgroup>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">

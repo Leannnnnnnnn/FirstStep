@@ -80,8 +80,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Password *</label>
-                            <input type="password" name="password" placeholder="••••••••" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).{8,}$" title="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character">
-                            <span class="helper-text">Must be at least 8 characters and include: uppercase, lowercase, number, and special character (!@#$%^&*etc.)</span>
+                            <input type="password" name="password" placeholder="••••••••" required minlength="8">
+                            <span class="helper-text">Minimum 8 characters required</span>
                         </div>
                         <div class="form-group">
                             <label>Confirm Password *</label>
@@ -100,7 +100,48 @@
                         </div>
                         <div class="form-group">
                             <label>Course / Program *</label>
-                            <input type="text" name="course" placeholder="BS Computer Science" value="<?php echo $course; ?>" required>
+                            <select name="course" required>
+                                <option value="">Select your course</option>
+                                <optgroup label="Engineering & Technology">
+                                    <option value="BS Computer Engineering">BS Computer Engineering</option>
+                                    <option value="BS Computer Science">BS Computer Science</option>
+                                    <option value="BS Information Technology">BS Information Technology</option>
+                                    <option value="BS Civil Engineering">BS Civil Engineering</option>
+                                    <option value="BS Electrical Engineering">BS Electrical Engineering</option>
+                                    <option value="BS Mechanical Engineering">BS Mechanical Engineering</option>
+                                </optgroup>
+                                <optgroup label="Business & Management">
+                                    <option value="BS Business Administration">BS Business Administration</option>
+                                    <option value="BS Accountancy">BS Accountancy</option>
+                                    <option value="BS Entrepreneurship">BS Entrepreneurship</option>
+                                    <option value="BS Marketing Management">BS Marketing Management</option>
+                                </optgroup>
+                                <optgroup label="Healthcare & Medical">
+                                    <option value="BS Nursing">BS Nursing</option>
+                                    <option value="BS Pharmacy">BS Pharmacy</option>
+                                    <option value="BS Physical Therapy">BS Physical Therapy</option>
+                                    <option value="BS Medical Technology">BS Medical Technology</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+                                    <option value="Bachelor of Secondary Education">Bachelor of Secondary Education</option>
+                                </optgroup>
+                                <optgroup label="Sciences">
+                                    <option value="BS Biology">BS Biology</option>
+                                    <option value="BS Chemistry">BS Chemistry</option>
+                                    <option value="BS Psychology">BS Psychology</option>
+                                </optgroup>
+                                <optgroup label="Arts & Communication">
+                                    <option value="AB Communication">AB Communication</option>
+                                    <option value="AB Mass Communication">AB Mass Communication</option>
+                                    <option value="BA Fine Arts">BA Fine Arts</option>
+                                </optgroup>
+                                <optgroup label="Others">
+                                    <option value="BS Criminology">BS Criminology</option>
+                                    <option value="BS Social Work">BS Social Work</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
