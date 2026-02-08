@@ -79,8 +79,8 @@ $count_stmt->close();
     <main>
         <div class="dashboard-container">
             <div class="dashboard-header">
-                <h2>My Applications</h2>
-                <p>Track all your internship applications</p>
+                <h2 style="margin-left: 20px;">My Applications</h2>
+                <p style="margin-left: 20px;">Track all your internship applications</p>
             </div>
 
             <div class="dashboard-stats">
@@ -103,7 +103,7 @@ $count_stmt->close();
             </div>
 
             <div class="dashboard-content">
-                <h3>All Applications (<?php echo $applications->num_rows; ?>)</h3>
+                <h3 style="margin-left: 20px;">All Applications (<?php echo $applications->num_rows; ?>)</h3>
                 
                 <?php if ($applications->num_rows > 0): ?>
                     <div class="application-list">

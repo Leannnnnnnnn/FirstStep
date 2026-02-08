@@ -17,29 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($job_title) || empty($job_description) || empty($requirements)) {
         $_SESSION['error'] = 'Please fill in all required fields';
-    } 
-    // ===== ADDED: LENGTH VALIDATION =====
-    elseif (strlen($job_title) > 255) {
-        $_SESSION['error'] = 'Job title must not exceed 255 characters';
-    } elseif (strlen($job_description) < 50) {
-        $_SESSION['error'] = 'Job description must be at least 50 characters';
-    } elseif (strlen($job_description) > 10000) {
-        $_SESSION['error'] = 'Job description must not exceed 10,000 characters';
-    } elseif (strlen($requirements) < 20) {
-        $_SESSION['error'] = 'Requirements must be at least 20 characters';
-    } elseif (strlen($requirements) > 10000) {
-        $_SESSION['error'] = 'Requirements must not exceed 10,000 characters';
-    } elseif (strlen($location) > 255) {
-        $_SESSION['error'] = 'Location must not exceed 255 characters';
-    } elseif (strlen($duration) > 100) {
-        $_SESSION['error'] = 'Duration must not exceed 100 characters';
-    } elseif (!empty($stipend) && strlen($stipend) > 100) {
-        $_SESSION['error'] = 'Stipend must not exceed 100 characters';
-    } elseif ($slots_available < 1 || $slots_available > 100) {
-        $_SESSION['error'] = 'Slots available must be between 1 and 100';
-    } 
-    // ===== END LENGTH VALIDATION =====
-    else {
+    } elseif (!empty($application_deadline) && strtotime($application_deadline) < strtotime(date('Y-m-d'))) {
+        $_SESSION['error'] = 'Application deadline cannot be in the past. Please select today or a future date.';
+
+    } else {
         $stmt = $conn->prepare("INSERT INTO internship_postings (company_id, job_title, job_description, requirements, internship_type, location, duration, stipend, slots_available, application_deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         $stmt->bind_param("isssssssiss", $_SESSION['user_id'], $job_title, $job_description, $requirements, $internship_type, $location, $duration, $stipend, $slots_available, $application_deadline, $status);
@@ -98,18 +79,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h3>Job Information</h3>
                     <div class="form-group">
                         <label>Job Title *</label>
-                        <input type="text" name="jobTitle" placeholder="e.g., Web Development Intern" required maxlength="255">
-                        <span class="helper-text">Maximum 255 characters</span>
+                        <input type="text" name="jobTitle" placeholder="e.g., Web Development Intern" required>
                     </div>
                     <div class="form-group">
                         <label>Job Description *</label>
-                        <textarea name="jobDescription" rows="6" placeholder="Describe the role, responsibilities, and what the intern will learn..." required minlength="50" maxlength="10000"></textarea>
-                        <span class="helper-text">Minimum 50 characters, maximum 10,000 characters. Provide a detailed description of the internship role</span>
+                        <textarea name="jobDescription" rows="6" placeholder="Describe the role, responsibilities, and what the intern will learn..." required></textarea>
+                        <span class="helper-text">Provide a detailed description of the internship role</span>
                     </div>
                     <div class="form-group">
                         <label>Requirements *</label>
-                        <textarea name="requirements" rows="6" placeholder="List the required skills, qualifications, and experience..." required minlength="20" maxlength="10000"></textarea>
-                        <span class="helper-text">Minimum 20 characters, maximum 10,000 characters. Specify what skills and qualifications are needed</span>
+                        <textarea name="requirements" rows="6" placeholder="List the required skills, qualifications, and experience..." required></textarea>
+                        <span class="helper-text">Specify what skills and qualifications are needed</span>
                     </div>
                 </div>
 
@@ -127,28 +107,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="form-group">
                             <label>Location *</label>
-                            <input type="text" name="location" placeholder="e.g., Makati City or Remote Work" required maxlength="255">
+                            <input type="text" name="location" placeholder="e.g., Makati City or Remote Work" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Duration *</label>
-                            <input type="text" name="duration" placeholder="e.g., 3-6 months" required maxlength="100">
+                            <input type="text" name="duration" placeholder="e.g., 3-6 months" required>
                         </div>
                         <div class="form-group">
                             <label>Allowance</label>
-                            <input type="text" name="stipend" placeholder="e.g., 5,000 - 8,000 per month" maxlength="100">
+                            <input type="text" name="stipend" placeholder="e.g., 5,000 - 8,000 per month">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Number of Slots *</label>
-                            <input type="number" name="slotsAvailable" min="1" max="100" value="1" required>
-                            <span class="helper-text">Enter a number between 1 and 100</span>
+                            <input type="number" name="slotsAvailable" min="1" max="100" value="1" required style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                            <span class="helper-text">Maximum number of interns to accept (1-100)</span>
                         </div>
                         <div class="form-group">
                             <label>Application Deadline</label>
-                            <input type="date" name="applicationDeadline">
+                            <input type="date" name="applicationDeadline" min="<?php echo date('Y-m-d'); ?>" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                            <span class="helper-text">Last date students can apply</span>
                         </div>
                     </div>
                 </div>
