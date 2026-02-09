@@ -69,4 +69,11 @@ function require_company() {
         redirect('login.php');
     }
 }
+
+function require_admin() {
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+        $_SESSION['error'] = 'Please login as admin to access this page';
+        redirect('admin_login.php');
+    }
+}
 ?>

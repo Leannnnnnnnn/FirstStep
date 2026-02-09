@@ -92,6 +92,20 @@
                 </div>
 
                 <div class="form-section">
+                    <h3>Location</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" name="city" placeholder="Quezon City" value="<?php echo $city; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Barangay *</label>
+                            <input type="text" name="barangay" placeholder="Commonwealth" value="<?php echo $barangay; ?>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
                     <h3>Educational Information</h3>
                     <div class="form-row">
                         <div class="form-group">
@@ -157,21 +171,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="form-section">
-                    <h3>Location</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>City *</label>
-                            <input type="text" name="city" placeholder="Quezon City" value="<?php echo $city; ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Barangay *</label>
-                            <input type="text" name="barangay" placeholder="Commonwealth" value="<?php echo $barangay; ?>" required>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="form-section">
                     <h3>Internship Preferences</h3>
                     <div class="form-group">

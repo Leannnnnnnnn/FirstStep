@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error'] = 'Application deadline cannot be in the past. Please select today or a future date.';
 
     } else {
-        $stmt = $conn->prepare("INSERT INTO internship_postings (company_id, job_title, job_description, requirements, internship_type, location, duration, stipend, slots_available, application_deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO internship_postings (company_id, job_title, job_description, requirements, internship_type, location, duration, stipend, slots_available, application_deadline, status, approval_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
         
         $stmt->bind_param("isssssssiss", $_SESSION['user_id'], $job_title, $job_description, $requirements, $internship_type, $location, $duration, $stipend, $slots_available, $application_deadline, $status);
         
         if ($stmt->execute()) {
-            $_SESSION['success'] = 'Internship posting created successfully!';
+            $_SESSION['success'] = 'Internship posting created successfully and sent for admin approval!';
             redirect('company_postings.php');
         } else {
             $_SESSION['error'] = 'Failed to create posting: ' . $conn->error;
