@@ -53,7 +53,7 @@
             </form>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="register.php">Register now</a></p>
+                <p>Don't have an account? <a href="register.php">Register Here!</a></p>
             </div>
         </div>
     </main>

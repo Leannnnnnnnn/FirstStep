@@ -19,11 +19,11 @@ $year_level = sanitize_input($_POST['yearLevel'] ?? '');
 $city = sanitize_input($_POST['city'] ?? '');
 $barangay = sanitize_input($_POST['barangay'] ?? '');
 $skills = sanitize_input($_POST['skills'] ?? '');
-$internship_types_array = $_POST['internshipTypes'] ?? [];
+$internship_type = sanitize_input($_POST['internshipType'] ?? '');
 
 // Function to save form data
 function saveFormData() {
-    global $first_name, $middle_name, $surname, $email, $school, $course, $year_level, $city, $barangay, $skills, $internship_types_array;
+    global $first_name, $middle_name, $surname, $email, $school, $course, $year_level, $city, $barangay, $skills, $internship_type;
     $_SESSION['form_data'] = [
         'firstName' => $first_name,
         'middleName' => $middle_name,
@@ -35,17 +35,24 @@ function saveFormData() {
         'city' => $city,
         'barangay' => $barangay,
         'skills' => $skills,
-        'internshipTypes' => $internship_types_array
+        'internshipType' => $internship_type
     ];
 }
 
-// Handle multiple internship types
-if (empty($internship_types_array)) {
+// Validate internship type
+if (empty($internship_type)) {
     saveFormData();
-    $_SESSION['error'] = 'Please select at least one internship type';
+    $_SESSION['error'] = 'Please select an internship type';
     redirect('register_student.php');
 }
-$internship_types = implode(',', array_map('sanitize_input', $internship_types_array));
+
+// Validate it's one of the allowed values
+$allowed_types = ['On-site', 'Remote', 'Hybrid'];
+if (!in_array($internship_type, $allowed_types)) {
+    saveFormData();
+    $_SESSION['error'] = 'Invalid internship type selected';
+    redirect('register_student.php');
+}
 
 // Validation
 if (empty($first_name) || empty($surname) || empty($email) || empty($password)) {
@@ -183,7 +190,7 @@ $password_hash = hash_password($password);
 // Insert into database
 $stmt = $conn->prepare("INSERT INTO students (first_name, middle_name, surname, email, password_hash, school, course, year_level, city, barangay, internship_types, skills, resume_path, account_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active')");
 
-$stmt->bind_param("sssssssssssss", $first_name, $middle_name, $surname, $email, $password_hash, $school, $course, $year_level, $city, $barangay, $internship_types, $skills, $resume_path);
+$stmt->bind_param("sssssssssssss", $first_name, $middle_name, $surname, $email, $password_hash, $school, $course, $year_level, $city, $barangay, $internship_type, $skills, $resume_path);
 
 if ($stmt->execute()) {
     // Clear form data on success

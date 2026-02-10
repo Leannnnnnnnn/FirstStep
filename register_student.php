@@ -46,7 +46,7 @@
             $city = isset($_SESSION['form_data']['city']) ? htmlspecialchars($_SESSION['form_data']['city']) : '';
             $barangay = isset($_SESSION['form_data']['barangay']) ? htmlspecialchars($_SESSION['form_data']['barangay']) : '';
             $skills = isset($_SESSION['form_data']['skills']) ? htmlspecialchars($_SESSION['form_data']['skills']) : '';
-            $internshipTypes = isset($_SESSION['form_data']['internshipTypes']) ? $_SESSION['form_data']['internshipTypes'] : [];
+            $internshipTypes = isset($_SESSION['form_data']['internshipType']) ? [$_SESSION['form_data']['internshipType']] : [];
 
             // Clear form data after retrieving
             unset($_SESSION['form_data']);
@@ -195,22 +195,22 @@
                 <div class="form-section">
                     <h3>Internship Preferences</h3>
                     <div class="form-group">
-                        <label>Preferred Internship Types * (Select all that apply)</label>
+                        <label>Preferred Internship Type *</label>
                         <div class="checkbox-group">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="On-site" <?php if(in_array('On-site', $internshipTypes)) echo 'checked'; ?>>
+                                <input type="radio" name="internshipType" value="On-site" <?php if(isset($internshipTypes[0]) && $internshipTypes[0] == 'On-site') echo 'checked'; ?> required>
                                 <span>On-site</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="Remote" <?php if(in_array('Remote', $internshipTypes)) echo 'checked'; ?>>
+                                <input type="radio" name="internshipType" value="Remote" <?php if(isset($internshipTypes[0]) && $internshipTypes[0] == 'Remote') echo 'checked'; ?> required>
                                 <span>Remote</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="Hybrid" <?php if(in_array('Hybrid', $internshipTypes)) echo 'checked'; ?>>
+                                <input type="radio" name="internshipType" value="Hybrid" <?php if(isset($internshipTypes[0]) && $internshipTypes[0] == 'Hybrid') echo 'checked'; ?> required>
                                 <span>Hybrid</span>
                             </label>
                         </div>
-                        <span class="helper-text">Select at least one internship type</span>
+                        <span class="helper-text">Select one internship type</span>
                     </div>
                     <div class="form-group">
                         <label>Skills</label>

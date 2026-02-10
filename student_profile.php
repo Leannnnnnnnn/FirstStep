@@ -21,15 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     $barangay = sanitize_input($_POST['barangay']);
     $skills = sanitize_input($_POST['skills']);
     
-    // Handle multiple internship types
-    $internship_types_array = $_POST['internshipTypes'] ?? [];
-    if (empty($internship_types_array)) {
-        $_SESSION['error'] = 'Please select at least one internship type';
+    // Handle internship type (single selection)
+    $internship_type = sanitize_input($_POST['internshipType'] ?? '');
+    if (empty($internship_type)) {
+        $_SESSION['error'] = 'Please select an internship type';
     } else {
-        $internship_types = implode(',', array_map('sanitize_input', $internship_types_array));
-        
         $update_stmt = $conn->prepare("UPDATE students SET first_name=?, middle_name=?, surname=?, school=?, course=?, year_level=?, city=?, barangay=?, internship_types=?, skills=? WHERE student_id=?");
-        $update_stmt->bind_param("ssssssssssi", $first_name, $middle_name, $surname, $school, $course, $year_level, $city, $barangay, $internship_types, $skills, $_SESSION['user_id']);
+        $update_stmt->bind_param("ssssssssssi", $first_name, $middle_name, $surname, $school, $course, $year_level, $city, $barangay, $internship_type, $skills, $_SESSION['user_id']);
         
         if ($update_stmt->execute()) {
             // Update session name
@@ -87,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_resume'])) {
     }
 }
 
-// Parse internship types for checkboxes
-$selected_types = !empty($student['internship_types']) ? explode(',', $student['internship_types']) : [];
+// Get selected internship type (now a single value instead of comma-separated)
+$selected_type = !empty($student['internship_types']) ? $student['internship_types'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,23 +138,26 @@ $selected_types = !empty($student['internship_types']) ? explode(',', $student['
                     <div class="form-row">
                         <div class="form-group">
                             <label>First Name *</label>
-                            <input type="text" name="firstName" value="<?php echo htmlspecialchars($student['first_name']); ?>" disabled>
+                            <input type="text" value="<?php echo htmlspecialchars($student['first_name']); ?>" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
+                            <input type="hidden" name="firstName" value="<?php echo htmlspecialchars($student['first_name']); ?>">
                             <span class="helper-text">This field cannot be changed</span>
                         </div>
                         <div class="form-group">
                             <label>Middle Name</label>
-                            <input type="text" name="middleName" value="<?php echo htmlspecialchars($student['middle_name']); ?>"disabled>
+                            <input type="text" value="<?php echo htmlspecialchars($student['middle_name']); ?>" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
+                            <input type="hidden" name="middleName" value="<?php echo htmlspecialchars($student['middle_name']); ?>">
                             <span class="helper-text">This field cannot be changed</span>
                         </div>
                         <div class="form-group">
                             <label>Last Name *</label>
-                            <input type="text" name="surname" value="<?php echo htmlspecialchars($student['surname']); ?>" disabled>
+                            <input type="text" value="<?php echo htmlspecialchars($student['surname']); ?>" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
+                            <input type="hidden" name="surname" value="<?php echo htmlspecialchars($student['surname']); ?>">
                             <span class="helper-text">This field cannot be changed</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" value="<?php echo htmlspecialchars($student['email']); ?>" disabled>
+                        <input type="email" value="<?php echo htmlspecialchars($student['email']); ?>" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
                         <span class="helper-text">This field cannot be changed</span>
                     </div>
                 </div>
@@ -251,18 +252,18 @@ $selected_types = !empty($student['internship_types']) ? explode(',', $student['
                 <div class="form-section">
                     <h3>Internship Preferences</h3>
                     <div class="form-group">
-                        <label>Preferred Internship Types * (Select all that apply)</label>
+                        <label>Preferred Internship Type *</label>
                         <div class="checkbox-group">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="On-site" <?php if(in_array('On-site', $selected_types)) echo 'checked'; ?>>
+                                <input type="radio" name="internshipType" value="On-site" <?php if($selected_type == 'On-site') echo 'checked'; ?> required>
                                 <span>On-site</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="Remote" <?php if(in_array('Remote', $selected_types)) echo 'checked'; ?>>
+                                <input type="radio" name="internshipType" value="Remote" <?php if($selected_type == 'Remote') echo 'checked'; ?> required>
                                 <span>Remote</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="internshipTypes[]" value="Hybrid" <?php if(in_array('Hybrid', $selected_types)) echo 'checked'; ?>>
+                                <input type="radio" name="internshipType" value="Hybrid" <?php if($selected_type == 'Hybrid') echo 'checked'; ?> required>
                                 <span>Hybrid</span>
                             </label>
                         </div>
@@ -287,7 +288,8 @@ $selected_types = !empty($student['internship_types']) ? explode(',', $student['
                     <?php if (!empty($student['resume_path'])): ?>
                         <div style="margin-bottom: 1rem; padding: 1rem; background: var(--light-gray); border-radius: 6px;">
                             <p><strong>Current Resume:</strong> <?php echo htmlspecialchars(basename($student['resume_path'])); ?></p>
-                            <a href="uploads/<?php echo htmlspecialchars($student['resume_path']); ?>" target="_blank" class="btn-secondary" style="margin-top: 0.5rem;">View Resume</a>
+                            <br>
+                            <a href="uploads/<?php echo htmlspecialchars($student['resume_path']); ?>" target="_blank" class="btn-secondary" style="margin-top: rem; ">View Resume</a>
                         </div>
                     <?php endif; ?>
                     <div class="form-group">
