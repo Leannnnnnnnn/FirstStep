@@ -80,8 +80,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Password *</label>
-                            <input type="password" name="password" placeholder="••••••••" required minlength="8">
-                            <span class="helper-text">Minimum 8 characters required</span>
+                            <input type="password" name="password" placeholder="••••••••" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).{8,}$" title="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character">
+                            <span class="helper-text">Must be at least 8 characters and include: uppercase, lowercase, number, and special character (!@#$%^&*etc.)</span>
                         </div>
                         <div class="form-group">
                             <label>Confirm Password *</label>
@@ -91,12 +91,33 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                 <div class="form-section">
                     <h3>Location</h3>
                     <div class="form-row">
                         <div class="form-group">
                             <label>City *</label>
-                            <input type="text" name="city" placeholder="Quezon City" value="<?php echo $city; ?>" required>
+                            <select name="city" required>
+                                <option value="">Select your city</option>
+                                <optgroup label="Metro Manila">
+                                    <option value="Manila">Manila</option>
+                                    <option value="Quezon City">Quezon City</option>
+                                    <option value="Makati">Makati</option>
+                                    <option value="Taguig">Taguig</option>
+                                </optgroup>
+                                <optgroup label="Luzon">
+                                    <option value="Baguio">Baguio</option>
+                                    <option value="Angeles">Angeles</option>
+                                </optgroup>
+                                <optgroup label="Visayas">
+                                    <option value="Cebu City">Cebu City</option>
+                                    <option value="Iloilo City">Iloilo City</option>
+                                </optgroup>
+                                <optgroup label="Mindanao">
+                                    <option value="Davao City">Davao City</option>
+                                    <option value="Cagayan de Oro">Cagayan de Oro</option>
+                                </optgroup>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Barangay *</label>
