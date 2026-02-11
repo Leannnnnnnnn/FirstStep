@@ -62,12 +62,49 @@ $accepted_applications = $conn->query("SELECT COUNT(*) as total FROM application
         .btn-clear { padding: 0.7rem 1.5rem; background: var(--light-gray); color: var(--dark); border: none; border-radius: 6px; text-decoration: none; display: inline-block; text-align: center; font-weight: 600; }
         .active-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
         .filter-tag { background: var(--primary-color); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; }
+        
+        /* Premium Internship Card Styling */
+        .internship-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e5e7eb;
+            background: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
+        }
+        .internship-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08) !important;
+            border-color: #d1d5db;
+        }
+        .internship-card h4 {
+            color: #1f2937;
+            font-weight: 700;
+            font-size: 1.15rem;
+            line-height: 1.4;
+        }
+        .company-name {
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .detail-item {
+            font-size: 0.9rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+        .badge {
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <div class="logo-text"><h1>FirstStep</h1><p>Internship Connection Platform</p></div>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
+            </div>
             <nav class="nav-menu">
                 <a href="student_dashboard.php">Dashboard</a>
                 <a href="student_applications.php">My Applications</a>
@@ -145,9 +182,21 @@ $accepted_applications = $conn->query("SELECT COUNT(*) as total FROM application
                 <div class="internship-list">
                     <?php if ($internships->num_rows > 0): while ($internship = $internships->fetch_assoc()): ?>
                         <div class="internship-card">
-                            <div style="display: flex; align-items: flex-start; gap: 1rem;">
-                                <?php $logo_path = !empty($internship['company_logo']) ? htmlspecialchars($internship['company_logo']) : ''; $company_initial = strtoupper(substr($internship['company_name'], 0, 1)); $logo_exists = $logo_path && file_exists($logo_path); ?>
-                                <?php if ($logo_exists): ?><img src="<?php echo $logo_path; ?>" alt="<?php echo htmlspecialchars($internship['company_name']); ?>" style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; border: 1px solid #e5e7eb;"><?php else: ?><div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; font-weight: bold;"><?php echo $company_initial; ?></div><?php endif; ?>
+                            <div style="display: flex; align-items: flex-start; gap: 1.25rem;">
+                                <?php 
+                                $logo_path = !empty($internship['company_logo']) ? 'uploads/' . $internship['company_logo'] : ''; 
+                                $company_initial = strtoupper(substr($internship['company_name'], 0, 1)); 
+                                $logo_exists = !empty($internship['company_logo']) && file_exists('uploads/' . $internship['company_logo']); 
+                                ?>
+                                <div style="position: relative; flex-shrink: 0;">
+                                    <?php if ($logo_exists): ?>
+                                        <div style="width: 80px; height: 80px; background: #ffffff; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04); border: 2px solid #f3f4f6; transition: transform 0.2s ease, box-shadow 0.2s ease; overflow: hidden;">
+                                            <img src="<?php echo htmlspecialchars($logo_path); ?>" alt="<?php echo htmlspecialchars($internship['company_name']); ?>" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+                                        </div>
+                                    <?php else: ?>
+                                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700; flex-shrink: 0; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25), 0 2px 4px rgba(0,0,0,0.06); letter-spacing: -0.5px;"><?php echo $company_initial; ?></div>
+                                    <?php endif; ?>
+                                </div>
                                 <div style="flex: 1;">
                                     <h4 style="margin: 0 0 0.5rem 0;"><?php echo htmlspecialchars($internship['job_title']); ?></h4>
                                     <p class="company-name" style="margin: 0 0 0.5rem 0;">🏢 <?php echo htmlspecialchars($internship['company_name']); ?> <?php if (!empty($internship['industry_type'])): ?><span style="color: var(--gray); font-size: 0.9rem;">• <?php echo htmlspecialchars($internship['industry_type']); ?></span><?php endif; ?></p>

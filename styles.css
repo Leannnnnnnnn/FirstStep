@@ -78,7 +78,7 @@ main {
     background: var(--white);
     border-radius: 12px;
     padding: 2.5rem;
-    max-width: 1200px;
+    max-width: 900px;
     width: 100%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
@@ -152,6 +152,10 @@ main {
 }
 
 /* Forms */
+.registration-form {
+    max-width: 900px !important;
+}
+
 .form-section {
     margin-bottom: 2rem;
 }

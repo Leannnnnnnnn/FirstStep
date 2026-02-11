@@ -10,10 +10,13 @@
 <body>
     <header>
         <div class="logo">
-            <a href="index.php" class="back-button">← Back</a>
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <a href="landing.php" class="back-button">← Back</a>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
         </div>
     </header>
@@ -34,6 +37,9 @@
                 echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
                 unset($_SESSION['success']);
             }
+
+            // Check if form data exists (meaning validation failed)
+            $hasFormData = isset($_SESSION['form_data']);
 
             // Preserve form data
             $firstName = isset($_SESSION['form_data']['firstName']) ? htmlspecialchars($_SESSION['form_data']['firstName']) : '';
@@ -133,43 +139,43 @@
                             <select name="course" required>
                                 <option value="">Select your course</option>
                                 <optgroup label="Engineering & Technology">
-                                    <option value="BS Computer Engineering">BS Computer Engineering</option>
-                                    <option value="BS Computer Science">BS Computer Science</option>
-                                    <option value="BS Information Technology">BS Information Technology</option>
-                                    <option value="BS Civil Engineering">BS Civil Engineering</option>
-                                    <option value="BS Electrical Engineering">BS Electrical Engineering</option>
-                                    <option value="BS Mechanical Engineering">BS Mechanical Engineering</option>
+                                    <option value="BS Computer Engineering" <?php if($course == 'BS Computer Engineering') echo 'selected'; ?>>BS Computer Engineering</option>
+                                    <option value="BS Computer Science" <?php if($course == 'BS Computer Science') echo 'selected'; ?>>BS Computer Science</option>
+                                    <option value="BS Information Technology" <?php if($course == 'BS Information Technology') echo 'selected'; ?>>BS Information Technology</option>
+                                    <option value="BS Civil Engineering" <?php if($course == 'BS Civil Engineering') echo 'selected'; ?>>BS Civil Engineering</option>
+                                    <option value="BS Electrical Engineering" <?php if($course == 'BS Electrical Engineering') echo 'selected'; ?>>BS Electrical Engineering</option>
+                                    <option value="BS Mechanical Engineering" <?php if($course == 'BS Mechanical Engineering') echo 'selected'; ?>>BS Mechanical Engineering</option>
                                 </optgroup>
                                 <optgroup label="Business & Management">
-                                    <option value="BS Business Administration">BS Business Administration</option>
-                                    <option value="BS Accountancy">BS Accountancy</option>
-                                    <option value="BS Entrepreneurship">BS Entrepreneurship</option>
-                                    <option value="BS Marketing Management">BS Marketing Management</option>
+                                    <option value="BS Business Administration" <?php if($course == 'BS Business Administration') echo 'selected'; ?>>BS Business Administration</option>
+                                    <option value="BS Accountancy" <?php if($course == 'BS Accountancy') echo 'selected'; ?>>BS Accountancy</option>
+                                    <option value="BS Entrepreneurship" <?php if($course == 'BS Entrepreneurship') echo 'selected'; ?>>BS Entrepreneurship</option>
+                                    <option value="BS Marketing Management" <?php if($course == 'BS Marketing Management') echo 'selected'; ?>>BS Marketing Management</option>
                                 </optgroup>
                                 <optgroup label="Healthcare & Medical">
-                                    <option value="BS Nursing">BS Nursing</option>
-                                    <option value="BS Pharmacy">BS Pharmacy</option>
-                                    <option value="BS Physical Therapy">BS Physical Therapy</option>
-                                    <option value="BS Medical Technology">BS Medical Technology</option>
+                                    <option value="BS Nursing" <?php if($course == 'BS Nursing') echo 'selected'; ?>>BS Nursing</option>
+                                    <option value="BS Pharmacy" <?php if($course == 'BS Pharmacy') echo 'selected'; ?>>BS Pharmacy</option>
+                                    <option value="BS Physical Therapy" <?php if($course == 'BS Physical Therapy') echo 'selected'; ?>>BS Physical Therapy</option>
+                                    <option value="BS Medical Technology" <?php if($course == 'BS Medical Technology') echo 'selected'; ?>>BS Medical Technology</option>
                                 </optgroup>
                                 <optgroup label="Education">
-                                    <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
-                                    <option value="Bachelor of Secondary Education">Bachelor of Secondary Education</option>
+                                    <option value="Bachelor of Elementary Education" <?php if($course == 'Bachelor of Elementary Education') echo 'selected'; ?>>Bachelor of Elementary Education</option>
+                                    <option value="Bachelor of Secondary Education" <?php if($course == 'Bachelor of Secondary Education') echo 'selected'; ?>>Bachelor of Secondary Education</option>
                                 </optgroup>
                                 <optgroup label="Sciences">
-                                    <option value="BS Biology">BS Biology</option>
-                                    <option value="BS Chemistry">BS Chemistry</option>
-                                    <option value="BS Psychology">BS Psychology</option>
+                                    <option value="BS Biology" <?php if($course == 'BS Biology') echo 'selected'; ?>>BS Biology</option>
+                                    <option value="BS Chemistry" <?php if($course == 'BS Chemistry') echo 'selected'; ?>>BS Chemistry</option>
+                                    <option value="BS Psychology" <?php if($course == 'BS Psychology') echo 'selected'; ?>>BS Psychology</option>
                                 </optgroup>
                                 <optgroup label="Arts & Communication">
-                                    <option value="AB Communication">AB Communication</option>
-                                    <option value="AB Mass Communication">AB Mass Communication</option>
-                                    <option value="BA Fine Arts">BA Fine Arts</option>
+                                    <option value="AB Communication" <?php if($course == 'AB Communication') echo 'selected'; ?>>AB Communication</option>
+                                    <option value="AB Mass Communication" <?php if($course == 'AB Mass Communication') echo 'selected'; ?>>AB Mass Communication</option>
+                                    <option value="BA Fine Arts" <?php if($course == 'BA Fine Arts') echo 'selected'; ?>>BA Fine Arts</option>
                                 </optgroup>
                                 <optgroup label="Others">
-                                    <option value="BS Criminology">BS Criminology</option>
-                                    <option value="BS Social Work">BS Social Work</option>
-                                    <option value="Other">Other</option>
+                                    <option value="BS Criminology" <?php if($course == 'BS Criminology') echo 'selected'; ?>>BS Criminology</option>
+                                    <option value="BS Social Work" <?php if($course == 'BS Social Work') echo 'selected'; ?>>BS Social Work</option>
+                                    <option value="Other" <?php if($course == 'Other') echo 'selected'; ?>>Other</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -216,6 +222,11 @@
 
                 <div class="form-section">
                     <h3>Documents</h3>
+                    <?php if ($hasFormData): ?>
+                        <div class="alert alert-warning" style="margin-bottom: 1rem;">
+                            ⚠️ Please re-upload your resume (file inputs cannot be pre-filled for security reasons)
+                        </div>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label>Upload Resume (PDF) *</label>
                         <input type="file" name="resume" accept=".pdf" required class="file-input">

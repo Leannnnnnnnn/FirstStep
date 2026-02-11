@@ -63,19 +63,21 @@ $count_stmt->close();
 <body>
     <header>
         <div class="logo">
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
             <nav class="nav-menu">
                 <a href="student_dashboard.php">Dashboard</a>
-                <a href="student_applications.php" style="color: var(--primary-color);">My Applications</a>
+                <a href="student_applications.php">My Applications</a>
                 <a href="student_profile.php">Profile</a>
                 <a href="logout.php" class="logout-btn">Logout</a>
             </nav>
         </div>
     </header>
-
     <main>
         <div class="dashboard-container">
             <div class="dashboard-header">

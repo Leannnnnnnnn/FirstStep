@@ -64,9 +64,12 @@ $count_stmt->close();
 <body>
     <header>
         <div class="logo">
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
             <nav class="nav-menu">
                 <a href="company_dashboard.php">Dashboard</a>
@@ -77,7 +80,6 @@ $count_stmt->close();
             </nav>
         </div>
     </header>
-
     <main>
         <div class="dashboard-container">
             <div style="margin-bottom: 2rem;">
@@ -86,7 +88,7 @@ $count_stmt->close();
 
             <div class="dashboard-header">
                 <h2><?php echo htmlspecialchars($posting['job_title']); ?></h2>
-                <p>Applications for this posting</p>
+                <p style="margin-left: 20px;">Applications for this posting</p>
                 <div class="internship-details" style="margin-top: 1rem;">
                     <span class="detail-item">📍 <?php echo htmlspecialchars($posting['location']); ?></span>
                     <span class="detail-item">⏱️ <?php echo htmlspecialchars($posting['duration']); ?></span>
@@ -118,7 +120,7 @@ $count_stmt->close();
             </div>
 
             <div class="dashboard-content">
-                <h3>All Applications (<?php echo $applications->num_rows; ?>)</h3>
+                <h3 style="margin-left: 20px;">All Applications (<?php echo $applications->num_rows; ?>)</h3>
                 
                 <?php if ($applications->num_rows > 0): ?>
                     <div class="application-list">

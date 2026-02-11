@@ -11,9 +11,11 @@
     <!-- Navigation Bar -->
     <nav class="landing-nav">
         <div class="nav-container">
-            <div class="nav-logo">
-                <div class="logo-text">
-                    <h1>FirstStep</h1>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
                 </div>
             </div>
             <div class="nav-links">

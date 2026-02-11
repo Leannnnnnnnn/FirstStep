@@ -10,13 +10,17 @@
 <body>
     <header>
         <div class="logo">
-            <a href="register.php" class="back-button">← Back</a>
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <a href="landing.php" class="back-button">← Back</a>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
         </div>
     </header>
+
 
     <main>
         <div class="container registration-form">
@@ -34,6 +38,9 @@
                 echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
                 unset($_SESSION['success']);
             }
+
+            // Check if form data exists (meaning validation failed)
+            $hasFormData = isset($_SESSION['form_data']);
 
             // Preserve form data
             $companyEmail = isset($_SESSION['form_data']['companyEmail']) ? htmlspecialchars($_SESSION['form_data']['companyEmail']) : '';
@@ -135,6 +142,11 @@
 
                 <div class="form-section">
                     <h3>Company Branding</h3>
+                    <?php if ($hasFormData): ?>
+                        <div class="alert alert-warning" style="margin-bottom: 1rem;">
+                            ⚠️ Please re-upload your company logo (file inputs cannot be pre-filled for security reasons)
+                        </div>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label>Upload Company Logo *</label>
                         <input type="file" name="companyLogo" accept=".png,.jpg,.jpeg,.svg" required class="file-input">

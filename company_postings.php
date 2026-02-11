@@ -57,13 +57,16 @@ if (isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
 <body>
     <header>
         <div class="logo">
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
             <nav class="nav-menu">
                 <a href="company_dashboard.php">Dashboard</a>
-                <a href="company_postings.php" style="color: var(--primary-color);">My Postings</a>
+                <a href="company_postings.php">My Postings</a>
                 <a href="company_applications.php">Applications</a>
                 <a href="company_profile.php">Profile</a>
                 <a href="logout.php" class="logout-btn">Logout</a>
@@ -77,7 +80,7 @@ if (isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <h2>My Internship Postings</h2>
-                        <p>Manage all your internship opportunities</p>
+                        <p style="margin-left: 20px;">Manage all your internship opportunities</p>
                     </div>
                     <a href="create_posting.php" class="btn-primary company-btn">+ Create New Posting</a>
                 </div>
@@ -95,7 +98,7 @@ if (isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
             ?>
 
             <div class="dashboard-content">
-                <h3>All Postings (<?php echo $postings->num_rows; ?>)</h3>
+                <h3 style="margin-left: 20px;">All Postings (<?php echo $postings->num_rows; ?>)</h3>
                 
                 <?php if ($postings->num_rows > 0): ?>
                     <div class="internship-list">

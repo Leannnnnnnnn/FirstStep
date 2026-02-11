@@ -65,14 +65,17 @@ $count_stmt->close();
 <body>
     <header>
         <div class="logo">
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
             <nav class="nav-menu">
                 <a href="company_dashboard.php">Dashboard</a>
                 <a href="company_postings.php">My Postings</a>
-                <a href="company_applications.php" style="color: var(--primary-color);">Applications</a>
+                <a href="company_applications.php">Applications</a>
                 <a href="company_profile.php">Profile</a>
                 <a href="logout.php" class="logout-btn">Logout</a>
             </nav>
@@ -83,7 +86,7 @@ $count_stmt->close();
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h2>All Applications</h2>
-                <p>Review and manage student applications</p>
+                <p style="margin-left: 20px;">Review and manage student applications</p>
             </div>
 
             <div class="dashboard-stats">
@@ -107,7 +110,7 @@ $count_stmt->close();
 
             <div class="dashboard-content">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                    <h3>Filter Applications</h3>
+                    <h3 style="margin-left: 20px;">Filter Applications</h3>
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                         <a href="company_applications.php?status=all" class="btn-secondary" style="<?php if($filter=='all') echo 'background: var(--primary-color); color: white;'; ?>">All</a>
                         <a href="company_applications.php?status=pending" class="btn-secondary" style="<?php if($filter=='pending') echo 'background: var(--primary-color); color: white;'; ?>">Pending</a>

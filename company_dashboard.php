@@ -59,9 +59,12 @@ $pending_applications = $conn->query($pending_query)->fetch_assoc()['total'];
 <body>
     <header>
         <div class="logo">
-            <div class="logo-text">
-                <h1>FirstStep</h1>
-                <p>Internship Connection Platform</p>
+            <div class="logo-text" style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="uploads/logos/FirstStep_Logo.png" alt="FirstStep Logo" style="height: 45px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.5rem;">FirstStep</h1>
+                    <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Internship Connection Platform</p>
+                </div>
             </div>
             <nav class="nav-menu">
                 <a href="company_dashboard.php">Dashboard</a>
@@ -77,7 +80,7 @@ $pending_applications = $conn->query($pending_query)->fetch_assoc()['total'];
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h2>Welcome, <?php echo htmlspecialchars($company['company_name']); ?>!</h2>
-                <p>Manage your internship postings and applications</p>
+                <p style="margin-left: 20px;">Manage your internship postings and applications</p>
                 <?php if ($company['verification_status'] === 'pending'): ?>
                     <div class="alert alert-warning" style="margin-top: 1rem;">
                         ⚠️ Your account is pending verification. Some features may be limited.
@@ -106,7 +109,7 @@ $pending_applications = $conn->query($pending_query)->fetch_assoc()['total'];
 
             <div class="dashboard-content">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3>Your Internship Postings</h3>
+                    <h3 style="margin-left: 20px;">Your Internship Postings</h3>
                     <a href="create_posting.php" class="btn-primary company-btn">+ Create New Posting</a>
                 </div>
                 <div class="internship-list">
@@ -138,7 +141,7 @@ $pending_applications = $conn->query($pending_query)->fetch_assoc()['total'];
 
             <?php if ($applications->num_rows > 0): ?>
             <div class="dashboard-content" style="margin-top: 2rem;">
-                <h3>Recent Applications</h3>
+                <h3 style="margin-left: 20px;">Recent Applications</h3>
                 <div class="application-list">
                     <?php while ($application = $applications->fetch_assoc()): 
                         // Build full name
