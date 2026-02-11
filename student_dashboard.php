@@ -146,10 +146,10 @@ $accepted_applications = $conn->query("SELECT COUNT(*) as total FROM application
                             <label>Duration</label>
                             <select name="duration">
                                 <option value="">Any Duration</option>
-                                <option value="1-2 months" <?php echo $filter_duration === '1-2 months' ? 'selected' : ''; ?>>1-2 months</option>
-                                <option value="3 months" <?php echo $filter_duration === '3 months' ? 'selected' : ''; ?>>3 months</option>
-                                <option value="3-6 months" <?php echo $filter_duration === '3-6 months' ? 'selected' : ''; ?>>3-6 months</option>
-                                <option value="6 months" <?php echo $filter_duration === '6 months' ? 'selected' : ''; ?>>6 months</option>
+                                <option value="1-3 months" <?php echo $filter_duration === '1-3 months' ? 'selected' : ''; ?>>1-3 months</option>
+                                <option value="4-6 months" <?php echo $filter_duration === '4-6 months' ? 'selected' : ''; ?>>4-6 months</option>
+                                <option value="7-9 months" <?php echo $filter_duration === '7-9 months' ? 'selected' : ''; ?>>7-9 months</option>
+                                <option value="10-12 months" <?php echo $filter_duration === '10-12 months' ? 'selected' : ''; ?>>10-12 months</option>
                             </select>
                         </div>
                         <div class="filter-group">

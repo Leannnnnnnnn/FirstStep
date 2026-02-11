@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_logo'])) {
             <nav class="nav-menu">
                 <a href="company_dashboard.php">Dashboard</a>
                 <a href="company_postings.php">My Postings</a>
+                <a href="company_applications.php">Applications</a>
                 <a href="company_profile.php">Profile</a>
                 <a href="logout.php" class="logout-btn">Logout</a>
             </nav>
